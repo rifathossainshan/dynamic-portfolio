@@ -223,69 +223,40 @@
                 <p class="section-subtitle">Some of my recent work</p>
             </div>
             <div class="projects-grid">
+                @forelse($projects as $project)
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="build/assets/My Project/E-Commerce Website/download.jpg" alt="E-Commerce Website">
+                        @if($project->image)
+                            <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+                        @else
+                            <img src="/build/assets/placeholder.jpg" alt="Project Image">
+                        @endif
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                                @if($project->live_link)
+                                    <a href="{{ $project->live_link }}" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                @endif
+                                @if($project->github_link)
+                                    <a href="{{ $project->github_link }}" target="_blank" class="project-link"><i class="fab fa-github"></i></a>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>E-Commerce Website</h3>
-                        <p>A fully responsive e-commerce platform built with React and Node.js featuring modern UI and secure payment integration</p>
+                        <h3>{{ $project->title }}</h3>
+                        <p>{{ Str::limit($project->description, 150) }}</p>
                         <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Stripe API</span>
+                            @foreach(explode(',', $project->techs) as $tech)
+                                <span class="tech-tag">{{ trim($tech) }}</span>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="build/assets/My Project/Task Manager App/Task_management-3-1.webp" alt="Task Manager App">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Task Manager App</h3>
-                        <p>A modern task management application with real-time updates, drag-and-drop functionality, and team collaboration features</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Express</span>
-                            <span class="tech-tag">Socket.io</span>
-                            <span class="tech-tag">MySQL</span>
-                        </div>
-                    </div>
+                @empty
+                <div class="col-span-full text-center py-12">
+                    <p class="text-gray-500">No projects available yet.</p>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="build/assets/My Project/Weather Dashboard/a7a13be5-2145-4d43-8b02-9493915629bd-cover.png" alt="Weather Dashboard">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Weather Dashboard</h3>
-                        <p>Interactive weather dashboard with location-based forecasts, 7-day weather predictions, and beautiful data visualization</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Weather API</span>
-                            <span class="tech-tag">Chart.js</span>
-                            <span class="tech-tag">CSS3</span>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
