@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend Routes
@@ -19,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Admin Routes
@@ -37,4 +39,4 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('/messages/{message}', [ContactController::class, 'destroy'])->name('messages.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
