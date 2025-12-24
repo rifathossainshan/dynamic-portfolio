@@ -24,7 +24,7 @@ navLinks.forEach(link => {
         e.preventDefault();
         const targetId = link.getAttribute('href');
         const targetSection = document.querySelector(targetId);
-        
+
         if (targetSection) {
             const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
             window.scrollTo({
@@ -51,7 +51,7 @@ window.addEventListener('scroll', () => {
 window.addEventListener('scroll', () => {
     let current = '';
     const sections = document.querySelectorAll('section');
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop - 100;
         const sectionHeight = section.clientHeight;
@@ -59,7 +59,7 @@ window.addEventListener('scroll', () => {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -240,7 +240,7 @@ animateElements.forEach(el => {
 function typeWriter(element, text, speed = 100) {
     let i = 0;
     element.innerHTML = '';
-    
+
     function type() {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
@@ -248,7 +248,7 @@ function typeWriter(element, text, speed = 100) {
             setTimeout(type, speed);
         }
     }
-    
+
     type();
 }
 
@@ -262,12 +262,12 @@ window.addEventListener('load', () => {
 // Counter animation for stats
 function animateCounters() {
     const counters = document.querySelectorAll('.stat h4');
-    
+
     counters.forEach(counter => {
         const target = parseInt(counter.textContent.replace(/\D/g, ''));
         const increment = target / 100;
         let current = 0;
-        
+
         const updateCounter = () => {
             if (current < target) {
                 current += increment;
@@ -277,7 +277,7 @@ function animateCounters() {
                 counter.textContent = target + (counter.textContent.includes('%') ? '%' : '+');
             }
         };
-        
+
         updateCounter();
     });
 }
@@ -300,25 +300,25 @@ if (statsSection) {
 // Contact form handling
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     // Get form data
     const formData = new FormData(contactForm);
     const name = formData.get('name');
     const email = formData.get('email');
     const subject = formData.get('subject');
     const message = formData.get('message');
-    
+
     // Simple validation
     if (!name || !email || !subject || !message) {
         showNotification('Please fill in all fields', 'error');
         return;
     }
-    
+
     if (!isValidEmail(email)) {
         showNotification('Please enter a valid email address', 'error');
         return;
     }
-    
+
     // Simulate form submission
     showNotification('Message sent successfully!', 'success');
     contactForm.reset();
@@ -335,12 +335,12 @@ function showNotification(message, type = 'info') {
     // Remove existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach(notification => notification.remove());
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
-    
+
     // Add styles
     notification.style.cssText = `
         position: fixed;
@@ -357,14 +357,14 @@ function showNotification(message, type = 'info') {
         font-weight: 500;
         max-width: 300px;
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
-    
+
     // Remove after 3 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
@@ -379,7 +379,7 @@ window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
     const heroContent = document.querySelector('.hero-content');
-    
+
     if (hero && heroContent) {
         heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
     }
@@ -391,7 +391,7 @@ skillItems.forEach(item => {
     item.addEventListener('mouseenter', () => {
         item.style.transform = 'scale(1.1) rotate(5deg)';
     });
-    
+
     item.addEventListener('mouseleave', () => {
         item.style.transform = 'scale(1) rotate(0deg)';
     });
@@ -404,16 +404,16 @@ projectCards.forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         const rotateX = (y - centerY) / 10;
         const rotateY = (centerX - x) / 10;
-        
+
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
     });
@@ -422,7 +422,7 @@ projectCards.forEach(card => {
 // Loading animation
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-    
+
     // Add loading animation styles
     const style = document.createElement('style');
     style.textContent = `
@@ -845,37 +845,61 @@ const designData = {
 };
 
 // Open design modal
-function openDesignModal(designId) {
-    const data = designData[designId];
+// Open design modal
+function openDesignModal(id, title, category, image, description) {
+    let data;
+
+    if (arguments.length > 1) {
+        // Dynamic mode (passed all details)
+        data = {
+            title: title,
+            category: category,
+            image: image,
+            description: description,
+            tags: [category] // Use category as a tag
+        };
+    } else {
+        // Legacy mode (lookup by ID)
+        data = designData[id];
+    }
+
     if (data) {
         document.getElementById('modalTitle').textContent = data.title;
-        // derive category display from image path to ensure folder-based accuracy
+        // derive category display from image path to ensure folder-based accuracy (only if image is present)
         const derivedCategory = getCategoryFromPath(data.image) || data.category;
         document.getElementById('modalCategory').textContent = derivedCategory;
-        document.getElementById('modalImage').src = data.image;
-        document.getElementById('modalImage').alt = data.title;
+
+        const modalImg = document.getElementById('modalImage');
+        modalImg.src = data.image;
+        modalImg.alt = data.title;
+
         document.getElementById('modalDescription').textContent = data.description;
-        
+
         // Update tags
         const tagsContainer = document.querySelector('.modal-tags');
         tagsContainer.innerHTML = '';
-        data.tags.forEach(tag => {
-            const tagElement = document.createElement('span');
-            tagElement.className = 'tag';
-            tagElement.textContent = tag;
-            tagsContainer.appendChild(tagElement);
-        });
-        
+        if (data.tags && Array.isArray(data.tags)) {
+            data.tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'tag';
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+            });
+        }
+
         designModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 }
+// Make globally available
+window.openDesignModal = openDesignModal;
 
 // Close modal
 function closeDesignModal() {
     designModal.style.display = 'none';
     document.body.style.overflow = 'auto';
 }
+window.closeDesignModal = closeDesignModal;
 
 // Event listeners for modal
 closeModal.addEventListener('click', closeDesignModal);
@@ -897,14 +921,14 @@ document.addEventListener('keydown', (e) => {
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Portfolio website loaded successfully!');
-    
+
     // Add any additional initialization code here
     const currentYear = new Date().getFullYear();
     const footerYear = document.querySelector('.footer p');
     if (footerYear) {
         footerYear.textContent = footerYear.textContent.replace('2024', currentYear);
     }
-    
+
     // Validation: check designData category vs folder-derived category
     try {
         // Auto-fix designData categories from image folder and update DOM items' data-category
