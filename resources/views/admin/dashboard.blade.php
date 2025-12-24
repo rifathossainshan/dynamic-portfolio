@@ -162,6 +162,11 @@
     font-size: 0.875rem;
 }
 
+.recent-item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .recent-item-action {
     background: #f3f4f6;
     color: #374151;
@@ -176,6 +181,26 @@
 .recent-item-action:hover {
     background: #e5e7eb;
     color: #1f2937;
+}
+
+.recent-item-action.edit {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.recent-item-action.edit:hover {
+    background: #bfdbfe;
+    color: #1d4ed8;
+}
+
+.recent-item-action.delete {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.recent-item-action.delete:hover {
+    background: #fecaca;
+    color: #b91c1c;
 }
 
 .empty-state {
@@ -354,7 +379,7 @@
 </div>
 
 <!-- Recent Activity -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Recent Projects -->
     <div class="recent-section">
         <div class="section-header">
@@ -372,9 +397,21 @@
                         <span class="recent-item-time">
                             <i class="fas fa-clock mr-1"></i>{{ $project->created_at->diffForHumans() }}
                         </span>
-                        <a href="{{ route('admin.projects.show', $project) }}" class="recent-item-action">
-                            View Details
-                        </a>
+                        <div class="recent-item-actions">
+                            <a href="{{ route('admin.projects.show', $project) }}" class="recent-item-action">
+                                View
+                            </a>
+                            <a href="{{ route('admin.projects.edit', $project) }}" class="recent-item-action edit">
+                                Edit
+                            </a>
+                            <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this project?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="recent-item-action delete">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             @empty

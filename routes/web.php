@@ -28,6 +28,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // Projects Management
     Route::resource('projects', ProjectController::class);
 
+    // Portfolios Management
+    Route::resource('portfolios', PortfolioController::class);
+
     // Messages Management
     Route::get('/messages', [ContactController::class, 'index'])->name('messages.index');
     Route::get('/messages/{message}', [ContactController::class, 'show'])->name('messages.show');
