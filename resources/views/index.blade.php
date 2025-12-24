@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md. Rifat Hossain Shan - Portfolio</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <!-- Navigation --->
     <nav class="navbar">
@@ -52,7 +55,8 @@
                 </h1>
                 <h2 class="hero-subtitle">Full Stack Web Developer & Graphic Designer</h2>
                 <p class="hero-description">
-                    I'm a passionate full-stack developer and creative graphic designer with 4 years of experience. I love creating beautiful, functional websites and stunning visual designs that make a difference.
+                    I'm a passionate full-stack developer and creative graphic designer with 4 years of experience. I
+                    love creating beautiful, functional websites and stunning visual designs that make a difference.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work</a>
@@ -61,9 +65,9 @@
             </div>
             <div class="hero-image">
                 <div class="profile-card">
-                <div class="profile-img">
-                    <img src="/build/assets/Profile.jpg" alt="Profile Picture">
-                </div>
+                    <div class="profile-img">
+                        <img src="/build/assets/Profile.jpg" alt="Profile Picture">
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,13 +87,13 @@
                 <div class="about-text">
                     <h3>I'm a passionate full-stack developer and graphic designer</h3>
                     <p>
-                        With 4 years of experience in web development and graphic design, I specialize in creating 
-                        modern, responsive websites and stunning visual designs. I love turning complex problems 
+                        With 4 years of experience in web development and graphic design, I specialize in creating
+                        modern, responsive websites and stunning visual designs. I love turning complex problems
                         into simple, beautiful solutions that users love.
                     </p>
                     <p>
-                        I'm certified in Professional Graphic Design by Creative IT Institute and have worked on 
-                        numerous projects ranging from web applications to brand identity designs. When I'm not coding 
+                        I'm certified in Professional Graphic Design by Creative IT Institute and have worked on
+                        numerous projects ranging from web applications to brand identity designs. When I'm not coding
                         or designing, you can find me exploring new technologies or enjoying a good cup of coffee.
                     </p>
                     <div class="about-stats">
@@ -224,38 +228,40 @@
             </div>
             <div class="projects-grid">
                 @forelse($projects as $project)
-                <div class="project-card">
-                    <div class="project-image">
-                        @if($project->image)
-                            <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
-                        @else
-                            <img src="/build/assets/placeholder.jpg" alt="Project Image">
-                        @endif
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                @if($project->live_link)
-                                    <a href="{{ $project->live_link }}" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                @endif
-                                @if($project->github_link)
-                                    <a href="{{ $project->github_link }}" target="_blank" class="project-link"><i class="fab fa-github"></i></a>
-                                @endif
+                    <div class="project-card">
+                        <div class="project-image">
+                            @if($project->image)
+                                <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+                            @else
+                                <img src="/build/assets/placeholder.jpg" alt="Project Image">
+                            @endif
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    @if($project->live_link)
+                                        <a href="{{ $project->live_link }}" target="_blank" class="project-link"><i
+                                                class="fas fa-external-link-alt"></i></a>
+                                    @endif
+                                    @if($project->github_link)
+                                        <a href="{{ $project->github_link }}" target="_blank" class="project-link"><i
+                                                class="fab fa-github"></i></a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>{{ $project->title }}</h3>
+                            <p>{{ Str::limit($project->description, 150) }}</p>
+                            <div class="project-tech">
+                                @foreach(explode(',', $project->techs) as $tech)
+                                    <span class="tech-tag">{{ trim($tech) }}</span>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <h3>{{ $project->title }}</h3>
-                        <p>{{ Str::limit($project->description, 150) }}</p>
-                        <div class="project-tech">
-                            @foreach(explode(',', $project->techs) as $tech)
-                                <span class="tech-tag">{{ trim($tech) }}</span>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
                 @empty
-                <div class="col-span-full text-center py-12">
-                    <p class="text-gray-500">No projects available yet.</p>
-                </div>
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500">No projects available yet.</p>
+                    </div>
                 @endforelse
             </div>
         </div>
@@ -268,7 +274,7 @@
                 <h2 class="section-title">Design Portfolio</h2>
                 <p class="section-subtitle">My creative design work</p>
             </div>
-            
+
             <!-- Design Categories Filter -->
             <div class="design-filter">
                 <button class="filter-btn active" data-filter="all">All</button>
@@ -283,393 +289,41 @@
 
             <!-- Design Gallery -->
             <div class="design-gallery">
-                <!-- Logo Designs -->
-                <div class="design-item" data-category="logo">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Logo Design/400w-R-Meu_EcnME.webp" alt="Modern Logo Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Modern Logo Design</h3>
-                                <p>Clean and minimalist logo design</p>
-                                <button class="view-btn" onclick="openDesignModal('logo1')">View Details</button>
+                @php
+                    $categoryMap = [
+                        'Logo Design' => 'logo',
+                        'Brochure' => 'brochure',
+                        'Branding' => 'branding',
+                        'UI/UX Design' => 'ui',
+                        'Banner' => 'banner',
+                        'Business Card' => 'business-card',
+                        'T-shirt Design' => 'tshirt',
+                    ];
+                @endphp
+                @forelse($portfolios as $portfolio)
+                    <div class="design-item" data-category="{{ $categoryMap[$portfolio->category] ?? 'other' }}">
+                        <div class="design-image">
+                            @if($portfolio->image_path)
+                                <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}">
+                            @else
+                                <img src="/build/assets/placeholder.jpg" alt="{{ $portfolio->title }}">
+                            @endif
+                            <div class="design-overlay">
+                                <div class="design-info">
+                                    <h3>{{ $portfolio->title }}</h3>
+                                    <p>{{ $portfolio->category }}</p>
+                                    <button class="view-btn"
+                                        onclick="openDesignModal('{{ $portfolio->id }}', '{{ addslashes($portfolio->title) }}', '{{ addslashes($portfolio->category) }}', '{{ $portfolio->image_path ? asset('storage/' . $portfolio->image_path) : '/build/assets/placeholder.jpg' }}', '{{ addslashes($portfolio->description) }}')">View
+                                        Details</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="design-item" data-category="logo">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Logo Design/1.jpg" alt="Creative Logo Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Creative Logo Design</h3>
-                                <p>Innovative brand identity design</p>
-                                <button class="view-btn" onclick="openDesignModal('logo2')">View Details</button>
-                            </div>
-                        </div>
+                @empty
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500">No portfolio items added yet.</p>
                     </div>
-                </div>
-
-                <div class="design-item" data-category="logo">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Logo Design/2.png" alt="Professional Logo Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Professional Logo Design</h3>
-                                <p>Corporate branding solution</p>
-                                <button class="view-btn" onclick="openDesignModal('logo3')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Poster Designs -->
-                <div class="design-item" data-category="poster">
-                    <div class="design-image">
-                        <img src="Portfolio/Brochure/1.png" alt="Event Poster Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Event Poster Design</h3>
-                                <p>Dynamic event promotion design</p>
-                                <button class="view-btn" onclick="openDesignModal('poster1')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="poster">
-                    <div class="design-image">
-                        <img src="Portfolio/Brochure/2.png" alt="Corporate Poster Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Corporate Poster Design</h3>
-                                <p>Professional business poster</p>
-                                <button class="view-btn" onclick="openDesignModal('poster2')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="poster">
-                    <div class="design-image">
-                        <img src="Portfolio/Brochure/3.png" alt="Business Poster Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Business Poster Design</h3>
-                                <p>Modern business promotion design</p>
-                                <button class="view-btn" onclick="openDesignModal('poster3')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Branding Designs -->
-                <div class="design-item" data-category="branding">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Branding/Shop-branding-design.jpg" alt="Complete Brand Identity">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Complete Brand Identity</h3>
-                                <p>Comprehensive branding package</p>
-                                <button class="view-btn" onclick="openDesignModal('branding1')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="branding">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Branding/Generated image 1.png" alt="Fashion Brand Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Fashion Brand Design</h3>
-                                <p>Elegant fashion branding solution</p>
-                                <button class="view-btn" onclick="openDesignModal('branding2')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="branding">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Branding/Shop-branding-design.jpg" alt="Shop Branding Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Shop Branding Design</h3>
-                                <p>Retail brand identity design</p>
-                                <button class="view-btn" onclick="openDesignModal('branding3')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UI/UX Designs -->
-                <div class="design-item" data-category="ui">
-                    <div class="design-image">
-                        <img src="Portfolio/UI_Ux Design/g3JeyNK2QoJaa2fF93h82aBgaU.avif" alt="Mobile App UI Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Mobile App UI Design</h3>
-                                <p>Modern mobile interface design</p>
-                                <button class="view-btn" onclick="openDesignModal('ui1')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="ui">
-                    <div class="design-image">
-                        <img src="Portfolio/UI_Ux Design/Generated image 1.png" alt="Website UI Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Website UI Design</h3>
-                                <p>Responsive web interface design</p>
-                                <button class="view-btn" onclick="openDesignModal('ui2')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="ui">
-                    <div class="design-image">
-                        <img src="Portfolio/UI_Ux Design/Generated image 1 (1).png" alt="Dashboard UI Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Dashboard UI Design</h3>
-                                <p>Admin panel interface design</p>
-                                <button class="view-btn" onclick="openDesignModal('ui3')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Banner Designs -->
-                <div class="design-item" data-category="banner">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Banner/1.jpg" alt="Banner Design 1">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Banner Design 1</h3>
-                                <p>Large hero banner for promotions</p>
-                                <button class="view-btn" onclick="openDesignModal('banner1')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="banner">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Banner/2.jpg" alt="Banner Design 2">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Banner Design 2</h3>
-                                <p>Event promotion banner</p>
-                                <button class="view-btn" onclick="openDesignModal('banner2')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Business Card Designs -->
-                <div class="design-item" data-category="business-card">
-                    <div class="design-image">
-                        <img src="Portfolio/Bussiness Card/Generated image 1.png" alt="Business Card 1">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Business Card 1</h3>
-                                <p>Clean corporate business card</p>
-                                <button class="view-btn" onclick="openDesignModal('card1')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="business-card">
-                    <div class="design-image">
-                        <img src="Portfolio/Bussiness Card/Generated image 1 (1).png" alt="Business Card 2">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Business Card 2</h3>
-                                <p>Stylish contact card</p>
-                                <button class="view-btn" onclick="openDesignModal('card2')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- T-shirt Design -->
-                <div class="design-item" data-category="tshirt">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/T-shirt Design/1.png" alt="T-shirt Design">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>T-shirt Design</h3>
-                                <p>Print-ready apparel design</p>
-                                <button class="view-btn" onclick="openDesignModal('tshirt1')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Brochure additional designs -->
-                <div class="design-item" data-category="brochure">
-                    <div class="design-image">
-                        <img src="Portfolio/Brochure/4.png" alt="Brochure 4">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Brochure Design 4</h3>
-                                <p>Marketing brochure layout</p>
-                                <button class="view-btn" onclick="openDesignModal('brochure4')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="brochure">
-                    <div class="design-image">
-                        <img src="Portfolio/Brochure/5.png" alt="Brochure 5">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Brochure Design 5</h3>
-                                <p>Product brochure</p>
-                                <button class="view-btn" onclick="openDesignModal('brochure5')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="brochure">
-                    <div class="design-image">
-                        <img src="Portfolio/Brochure/6.png" alt="Brochure 6">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Brochure Design 6</h3>
-                                <p>Service brochure layout</p>
-                                <button class="view-btn" onclick="openDesignModal('brochure6')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="brochure">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Brochure/7.png" alt="Brochure 7">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Brochure Design 7</h3>
-                                <p>Promotional brochure</p>
-                                <button class="view-btn" onclick="openDesignModal('brochure7')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="brochure">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Brochure/8.png" alt="Brochure 8">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Brochure Design 8</h3>
-                                <p>Corporate brochure</p>
-                                <button class="view-btn" onclick="openDesignModal('brochure8')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="brochure">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Brochure/9.png" alt="Brochure 9">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Brochure Design 9</h3>
-                                <p>Informational brochure</p>
-                                <button class="view-btn" onclick="openDesignModal('brochure9')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Logo items -->
-                <div class="design-item" data-category="logo">
-                    <div class="design-image">
-                        <img src="Portfolio/Logo Design/400w-R-Meu_EcnME.webp" alt="Logo Example">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Logo Example A</h3>
-                                <p>Sample logo</p>
-                                <button class="view-btn" onclick="openDesignModal('logo4')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="logo">
-                    <div class="design-image">
-                        <img src="Portfolio/Logo Design/55.png" alt="Logo Example B">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Logo Example B</h3>
-                                <p>Brand mark concept</p>
-                                <button class="view-btn" onclick="openDesignModal('logo5')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="logo">
-                    <div class="design-image">
-                        <img src="Portfolio/Logo Design/555.png" alt="Logo Example C">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Logo Example C</h3>
-                                <p>Emblem design</p>
-                                <button class="view-btn" onclick="openDesignModal('logo6')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Branding extras -->
-                <div class="design-item" data-category="branding">
-                    <div class="design-image">
-                        <img src="/build/assets/Images/Portfolio/Branding/FASHIO~1.JPG" alt="Fashion Branding">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>Fashion Branding</h3>
-                                <p>Elegant brand presentation</p>
-                                <button class="view-btn" onclick="openDesignModal('branding4')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UI/UX extras -->
-                <div class="design-item" data-category="ui">
-                    <div class="design-image">
-                        <img src="Portfolio/UI_Ux Design/Generated image 1.png" alt="UI Mockup 1">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>UI Mockup 1</h3>
-                                <p>Screen mockup</p>
-                                <button class="view-btn" onclick="openDesignModal('ui4')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="design-item" data-category="ui">
-                    <div class="design-image">
-                        <img src="Portfolio/UI_Ux Design/Generated image 1 (2).png" alt="UI Mockup 2">
-                        <div class="design-overlay">
-                            <div class="design-info">
-                                <h3>UI Mockup 2</h3>
-                                <p>Responsive web mockup</p>
-                                <button class="view-btn" onclick="openDesignModal('ui5')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
@@ -754,7 +408,8 @@
                             <input type="text" id="subject" name="subject" placeholder="Subject" required>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5"
+                                required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -774,4 +429,5 @@
     </footer>
 
 </body>
+
 </html>

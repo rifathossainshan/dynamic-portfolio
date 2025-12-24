@@ -4,13 +4,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend Routes
 Route::get('/', function () {
     $projects = \App\Models\Project::all();
-    return view('index', compact('projects'));
+    $portfolios = \App\Models\Portfolio::orderBy('order', 'asc')->orderBy('created_at', 'desc')->get();
+    return view('index', compact('projects', 'portfolios'));
 })->name('home');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
